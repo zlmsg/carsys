@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlm.dao.OrderDao">
+    <insert id="addOrder" parameterType="order">
+    insert into sys_order (cid,uid,getid,backid,oprice,status) value (#{cid},#{uid},#{getid},#{backid},#{oprice},#{status});
+    </insert>
+    <select id="findAll" parameterType="int" resultType="com.zlm.vo.OrderSelect">
+    SELECT o.id ,o.oprice,car.name,c1.name getcar,c2.name backcar ,o.status FROM sys_order o JOIN sys_car car ON o.cid=car.id JOIN sys_city c1 ON c1.id = o.getid JOIN sys_city c2 ON c2.id = o.backid WHERE uid = #{uid}
+    </select>
+    <delete id="deleteOrd" parameterType="string">
+        delete from sys_order where id = #{id}
+    </delete>
+</mapper>
